@@ -65,7 +65,12 @@ def new(request):
                     "contents": util.get_entry(entry_content)
                 })
             else:
-                return render(request, "encyclopedia/error.html")
+                return render(request, "encyclopedia/new.html", {
+                    "exists": True,
+                    "entry_title": entry_title,
+                    "title": NewEntryTitle(),
+                    "content": NewEntryContent()
+                })
 
 
     return render(request, "encyclopedia/new.html", {

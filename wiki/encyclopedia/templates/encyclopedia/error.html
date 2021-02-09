@@ -5,9 +5,8 @@
 {% endblock %}
 
 {% block body %}
-    {% if error == True %}
-        <h1>ERROR: Entry for "{{ entry_title }}" not found.</h1>
-    {% else %}
-        <h1>Entry already exists.</h1>
-    {% endif %}
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">ERROR</h4>
+            Entry for "{{ entry_title }}" not found. Click <a href="{% url 'new' %}" class="alert-link">here</a> to create a new entry.
+        </div>
 {% endblock %}
