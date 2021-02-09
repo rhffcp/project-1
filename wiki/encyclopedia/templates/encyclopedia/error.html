@@ -5,5 +5,9 @@
 {% endblock %}
 
 {% block body %}
-    <h1>ERROR: Entry for "{{ entry_title }}"" not found.</h1>
+    {% if error == True %}
+        <h1>ERROR: Entry for "{{ entry_title }}" not found.</h1>
+    {% else %}
+        <h1>Entry already exists.</h1>
+    {% endif %}
 {% endblock %}
