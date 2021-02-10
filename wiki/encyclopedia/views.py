@@ -4,12 +4,9 @@ from . import util
 
 from django import forms
 
-class NewEntryTitle(forms.Form):
+class NewEntryForm(forms.Form):
     entry_title = forms.CharField(label="Title", widget=forms.TextInput(attrs={'class': "form-control"}))
-
-class NewEntryContent(forms.Form):
     entry_content = forms.CharField(label="Content", widget=forms.Textarea(attrs={'class': "form-control", 'style': "height: 200px"}))
-
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -51,12 +48,11 @@ def search(request):
 
 def new(request):
     if request.method == "POST":
-        title = NewEntryTitle(request.POST)
-        content = NewEntryContent(request.POST)
+        form = NewEntryForm(request.POST)
 
-        if title.is_valid() and content.is_valid():
-            entry_title = title.cleaned_data["entry_title"]
-            entry_content = content.cleaned_data["entry_content"]
+        if form.is_valid():
+            entry_title = form.cleaned_data["entry_title"]
+            entry_content = form.cleaned_data["entry_content"]
 
             if util.get_entry(entry_title) is None:
                 util.save_entry(entry_title, entry_content)
@@ -68,13 +64,24 @@ def new(request):
                 return render(request, "encyclopedia/new.html", {
                     "exists": True,
                     "entry_title": entry_title,
-                    "title": NewEntryTitle(),
-                    "content": NewEntryContent()
+                    "form": NewEntryForm()
                 })
 
 
     return render(request, "encyclopedia/new.html", {
-        "title": NewEntryTitle(),
-        "content": NewEntryContent()
+        "form": NewEntryForm()
+    })
+
+def edit(request, entry):
+    form = NewEntryForm()
+    entry_page = util.get_entry(entry)
+    
+    form.fields["entry_title"].initial = entry
+    form.fields["entry_content"].initial = entry_page
+    form.fields["entry_title"].widget = forms.HiddenInput()
+
+    return render(request, "encyclopedia/edit.html", {
+        "entry_title": entry,
+        "form": form
     })
 

@@ -8,28 +8,18 @@
     <h1>Create New Page</h1>
     {% if exists == True %}
         <div class="alert alert-danger" role="alert">
-            Error: "{{ entry_title }}" entry already exists. Click <a href="wiki/{{ entry_title }}" class="alert-link">here</a> to view or edit this entry.
+            "{{ entry_title }}" entry already exists. Click <a href="wiki/{{ entry_title }}" class="alert-link">here</a> to view or edit this entry.
         </div>
         <form action="{% url 'new' %}" method="post">
             {% csrf_token %}
-            <div style="margin-top: 15px;">
-                {{ title }}
-            </div>
-            <div style="margin-top: 15px;">
-                {{ content }}
-            </div>
+            {{ form }}
             <input class="btn btn-primary btn-sm" style="margin-top: 15px;" type="submit">
         </form> 
 
     {% else %}
         <form action="{% url 'new' %}" method="post">
             {% csrf_token %}
-            <div style="margin-top: 15px;">
-                {{ title }}
-            </div>
-            <div style="margin-top: 15px;">
-                {{ content }}
-            </div>
+            {{ form }}
             <input class="btn btn-primary btn-sm" style="margin-top: 15px;" type="submit">
         </form> 
 
