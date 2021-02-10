@@ -1,8 +1,8 @@
 from django.shortcuts import render
-
 from . import util
-
 from django import forms
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 class NewEntryForm(forms.Form):
     entry_title = forms.CharField(label="Title", widget=forms.TextInput(attrs={'class': "form-control"}))
@@ -85,3 +85,14 @@ def edit(request, entry):
         "form": form
     })
 
+def update(request):
+    if request.method == "POST":
+        form = NewEntryForm(request.POST)
+
+        if form.is_valid():
+            entry_title = form.cleaned_data["entry_title"]
+            entry_content = form.cleaned_data["entry_content"]
+
+            if util.get_entry(entry_title):
+                util.save_entry(entry_title, entry_content)
+                return HttpResponseRedirect(reverse("entry", kwargs={'entry': entry_title}))
