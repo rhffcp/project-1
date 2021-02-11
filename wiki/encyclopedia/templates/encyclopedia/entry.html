@@ -5,10 +5,9 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ entry_title }}</h1>
     <div>
-        {{ contents }}
+        {{ contents | safe }}
     </div>
 
-    <a style="margin-top: 15px;" role="button" class="btn btn-outline-secondary btn-sm" href="{{ entry_title }}/edit">Edit</a>
+    <a role="button" class="btn btn-outline-secondary btn-sm" href="{{ entry_title }}/edit">Edit</a>
 {% endblock %}

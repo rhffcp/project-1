@@ -4,6 +4,10 @@ from django import forms
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 import random
+import markdown2
+from markdown2 import Markdown
+
+markdowner = Markdown()
 
 class NewEntryForm(forms.Form):
     entry_title = forms.CharField(label="Title", widget=forms.TextInput(attrs={'class': "form-control"}))
@@ -24,7 +28,7 @@ def entry(request, entry):
     else:
         return render(request, "encyclopedia/entry.html", {
             "entry_title": entry,
-            "contents": entry_page
+            "contents": markdowner.convert(entry_page) 
         })
 
 def search(request):
