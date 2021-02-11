@@ -6,7 +6,8 @@
 
 {% block body %}
     <h1>Create New Page</h1>
-    {% if exists == True %}
+    <div style="margin-right: 300px;">
+        {% if exists == True %}
         <div class="alert alert-danger" role="alert">
             "{{ entry_title }}" entry already exists. Click <a href="wiki/{{ entry_title }}" class="alert-link">here</a> to view or edit this entry.
         </div>
@@ -22,6 +23,8 @@
             {{ form }}
             <input class="btn btn-primary btn-sm" style="margin-top: 15px;" type="submit">
         </form> 
+    </div>
+    
 
     {% endif %}
 

@@ -7,10 +7,13 @@
 {% block body %}
     <h1>Edit '{{ entry_title }}'</h1>
 
-    <form action="{% url 'update' %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input class="btn btn-primary btn-sm" style="margin-top: 15px;" type="submit" value="Save">
-    </form> 
+    <div style="margin-right: 300px;">
+        <form action="{% url 'update' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input class="btn btn-primary btn-sm" style="margin-top: 15px;" type="submit" value="Save">
+        </form> 
+    </div>
+    
     
 {% endblock %}
