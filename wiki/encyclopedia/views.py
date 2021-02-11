@@ -1,22 +1,30 @@
-from django.shortcuts import render
-from . import util
+import random
+
 from django import forms
+from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-import random
-import markdown2
+
+from . import util
+
 from markdown2 import Markdown
 
 markdowner = Markdown()
 
+
 class NewEntryForm(forms.Form):
-    entry_title = forms.CharField(label="Title", widget=forms.TextInput(attrs={'class': "form-control"}))
-    entry_content = forms.CharField(label="Content", widget=forms.Textarea(attrs={'class': "form-control", 'style': "height: 200px"}))
+    entry_title = forms.CharField(
+        label="Title", widget=forms.TextInput(attrs={'class': "form-control"}))
+
+    entry_content = forms.CharField(label="Content", widget=forms.Textarea(
+        attrs={'class': "form-control", 'style': "height: 200px"}))
+
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
     })
+
 
 def entry(request, entry):
     entry_page = util.get_entry(entry)
@@ -28,11 +36,12 @@ def entry(request, entry):
     else:
         return render(request, "encyclopedia/entry.html", {
             "entry_title": entry,
-            "contents": markdowner.convert(entry_page) 
+            "contents": markdowner.convert(entry_page)
         })
 
+
 def search(request):
-    search_value = request.GET.get('q','')
+    search_value = request.GET.get('q', '')
     entries = util.list_entries()
 
     suggestions = []
@@ -42,11 +51,11 @@ def search(request):
 
     if search_value in entries:
         return HttpResponseRedirect(reverse("entry", kwargs={'entry': search_value}))
-
     else:
         return render(request, "encyclopedia/suggestions.html", {
             "suggestions": suggestions
         })
+
 
 def new(request):
     if request.method == "POST":
@@ -66,15 +75,15 @@ def new(request):
                     "form": NewEntryForm()
                 })
 
-
     return render(request, "encyclopedia/new.html", {
         "form": NewEntryForm()
     })
 
+
 def edit(request, entry):
     form = NewEntryForm()
     entry_page = util.get_entry(entry)
-    
+
     form.fields["entry_title"].initial = entry
     form.fields["entry_content"].initial = entry_page
     form.fields["entry_title"].widget = forms.HiddenInput()
@@ -83,6 +92,7 @@ def edit(request, entry):
         "entry_title": entry,
         "form": form
     })
+
 
 def update(request):
     if request.method == "POST":
@@ -95,6 +105,7 @@ def update(request):
             if util.get_entry(entry_title):
                 util.save_entry(entry_title, entry_content)
                 return HttpResponseRedirect(reverse("entry", kwargs={'entry': entry_title}))
+
 
 def random_entry(request):
     random_entry = random.choice(util.list_entries())
