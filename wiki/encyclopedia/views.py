@@ -3,6 +3,7 @@ from . import util
 from django import forms
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+import random
 
 class NewEntryForm(forms.Form):
     entry_title = forms.CharField(label="Title", widget=forms.TextInput(attrs={'class': "form-control"}))
@@ -28,7 +29,6 @@ def entry(request, entry):
 
 def search(request):
     search_value = request.GET.get('q','')
-    entry_page = util.get_entry(search_value)
     entries = util.list_entries()
 
     suggestions = []
@@ -37,10 +37,8 @@ def search(request):
             suggestions.append(entry)
 
     if search_value in entries:
-        return render(request, "encyclopedia/entry.html", {
-            "entry_title": search_value,
-            "contents": entry_page
-    })
+        return HttpResponseRedirect(reverse("entry", kwargs={'entry': search_value}))
+
     else:
         return render(request, "encyclopedia/suggestions.html", {
             "suggestions": suggestions
@@ -56,10 +54,7 @@ def new(request):
 
             if util.get_entry(entry_title) is None:
                 util.save_entry(entry_title, entry_content)
-                return render(request, "encyclopedia/entry.html", {
-                    "entry_title": util.get_entry(entry_title),
-                    "contents": util.get_entry(entry_content)
-                })
+                return HttpResponseRedirect(reverse("entry", kwargs={'entry': entry_title}))
             else:
                 return render(request, "encyclopedia/new.html", {
                     "exists": True,
@@ -96,3 +91,8 @@ def update(request):
             if util.get_entry(entry_title):
                 util.save_entry(entry_title, entry_content)
                 return HttpResponseRedirect(reverse("entry", kwargs={'entry': entry_title}))
+
+def random_entry(request):
+    random_entry = random.choice(util.list_entries())
+
+    return HttpResponseRedirect(reverse("entry", kwargs={'entry': random_entry}))
