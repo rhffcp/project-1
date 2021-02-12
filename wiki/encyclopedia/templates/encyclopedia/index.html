@@ -9,7 +9,8 @@
 
     <ul>
         {% for entry in entries %}
-            <li><a href="wiki/{{ entry }}">{{ entry }}</a></li>
+            <!-- From current url (''), append and go to /wiki/entry -->
+            <li><a href="wiki/{{ entry }}">{{ entry }}</a></li> 
         {% endfor %}
     </ul>
 {% endblock %}

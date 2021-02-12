@@ -9,6 +9,7 @@
 
     <ul>
         {% for suggestion in suggestions %}
+            <!-- From current url (''), append and go to /wiki/suggestion -->
             <li><a href="wiki/{{ suggestion }}">{{ suggestion }}</a></li>
         {% endfor %}
     </ul>

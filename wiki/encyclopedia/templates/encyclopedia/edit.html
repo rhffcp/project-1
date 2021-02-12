@@ -9,7 +9,7 @@
 
     <div style="margin-right: 300px;">
         <form action="{% url 'update' %}" method="post">
-            {% csrf_token %}
+            {% csrf_token %} <!-- (Required: unique CSRF token per session) -->
             {{ form }}
             <input class="btn btn-primary btn-sm" style="margin-top: 15px;" type="submit" value="Save">
         </form>

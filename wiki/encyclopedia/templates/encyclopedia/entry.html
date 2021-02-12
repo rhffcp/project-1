@@ -8,5 +8,7 @@
     <h1>{{ entry_title }}</h1>
     
     {{ contents | safe }}
-    <a role="button" class="btn btn-outline-secondary btn-sm" href="{{ entry_title }}/edit">Edit</a>
+
+    <!-- From current url ('/wiki'), append and go to /entry_title/edit -->
+    <a href="{{ entry_title }}/edit" class="btn btn-outline-secondary btn-sm" role="button">Edit</a> 
 {% endblock %}

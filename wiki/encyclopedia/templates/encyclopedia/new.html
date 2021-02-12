@@ -10,10 +10,11 @@
     <div style="margin-right: 300px;">
         {% if exists == True %}
         <div class="alert alert-danger" role="alert">
-            "{{ entry_title }}" entry already exists. Click <a href="wiki/{{ entry_title }}" class="alert-link">here</a> to
+            "{{ entry_title }}" page already exists. Click <a href="wiki/{{ entry_title }}" class="alert-link">here</a> to
             view or edit this entry.
         </div>
         <form action="{% url 'new' %}" method="post">
+            <!-- (Required: unique CSRF token per session) -->
             {% csrf_token %}
             {{ form }}
             <input class="btn btn-primary btn-sm" style="margin-top: 15px;" type="submit">
@@ -21,6 +22,7 @@
 
         {% else %}
         <form action="{% url 'new' %}" method="post">
+            <!-- (Required: unique CSRF token per session) -->
             {% csrf_token %}
             {{ form }}
             <input class="btn btn-primary btn-sm" style="margin-top: 15px;" type="submit">
