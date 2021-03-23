@@ -22,3 +22,12 @@ It also utlizes the [python-markdown2](https://github.com/trentm/python-markdown
 ```
 pip3 install markdown2
 ```
+
+## Running
+To run this application, change into the outer wiki directory and run the following command from the terminal:
+
+```
+$ python manage.py runserver
+```
+
+Once the Django development server runs, visit the server's address to open the app.
