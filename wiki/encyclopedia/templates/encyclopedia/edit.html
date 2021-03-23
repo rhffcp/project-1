@@ -7,11 +7,11 @@
 {% block body %}
     <h1>Edit '{{ entry_title }}'</h1>
 
-    <div style="margin-right: 300px;">
+    <div id="edit-form">
         <form action="{% url 'update' %}" method="post">
-            {% csrf_token %} <!-- (Required: unique CSRF token per session) -->
+            {% csrf_token %}
             {{ form }}
-            <input class="btn btn-primary btn-sm" style="margin-top: 15px;" type="submit" value="Save">
+            <input id="edit-form-submit" class="btn btn-primary btn-sm" type="submit" value="Save">
         </form>
     </div>
 {% endblock %}

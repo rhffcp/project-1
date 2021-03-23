@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="alert alert-danger" role="alert" style="margin-right: 300px;">
+    <div id="error" class="alert alert-danger" role="alert">
         <h4 class="alert-heading">ERROR</h4>
         "{{ entry_title }}" page not found. Click <a href="{% url 'new' %}" class="alert-link">here</a> to create a new
         entry.
