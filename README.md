@@ -20,7 +20,7 @@ This project utilizes the [Django](https://www.djangoproject.com/download/) fram
 It also utlizes the [python-markdown2](https://github.com/trentm/python-markdown2) package to convert Markdown content to HTML. 
 
 ```
-pip3 install markdown2
+$ pip install markdown2
 ```
 
 ## Running
