@@ -6,7 +6,7 @@
 
 
 ## Description
-This project uses HTML, CSS, and Django to create an online encyclopedia where users are able to create, view, and edit wiki entries. It follows all the requirements of [CS50W's Wiki](https://cs50.harvard.edu/web/2020/projects/1/wiki/) project, plus additional customization.
+This project uses HTML, CSS, and Django to create an online encyclopedia where users are able to create, view, and edit wiki entries.
 
 - The sidebar displays a search form (where a query submission displays a list of search results), a new page option (where users are able to save a new entry), and a random page link (which renders a random entry).
 
